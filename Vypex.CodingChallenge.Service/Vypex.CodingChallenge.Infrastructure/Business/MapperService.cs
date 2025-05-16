@@ -14,6 +14,10 @@ namespace Vypex.CodingChallenge.Infrastructure.Business
             {
                 cfg.CreateMap<Employee, EmployeeModel>()
                    .ForMember(e => e.TotalLeaveDays, e => e.MapFrom(e => e.Leaves.Count()));
+
+                cfg.CreateMap<Leave, LeaveModel>();
+                cfg.CreateMap<LeaveModel, Leave>()
+                   .ForMember(lm => lm.Employee, l => l.Ignore());
             });
             _mapper = new Mapper(config);
         }

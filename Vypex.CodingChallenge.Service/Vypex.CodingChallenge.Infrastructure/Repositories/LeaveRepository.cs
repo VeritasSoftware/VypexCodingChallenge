@@ -12,9 +12,11 @@ namespace Vypex.CodingChallenge.Infrastructure.Repositories
             _context = context;
         }
 
-        public Task<Leave> AddAsync(Leave entity)
+        public async Task<Leave> AddAsync(Leave entity)
         {
-            throw new NotImplementedException();
+            await _context.Leaves.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
 
         public Task DeleteAsync(Guid id)
