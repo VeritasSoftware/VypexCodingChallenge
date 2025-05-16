@@ -8,6 +8,8 @@ namespace Vypex.CodingChallenge.Infrastructure.Data
     {
         public DbSet<Employee> Employees { get; set; } = default!;
 
+        public DbSet<Leave> Leaves { get; set; } = default!;
+
         public CodingChallengeContext()
         {
         }
@@ -34,6 +36,9 @@ namespace Vypex.CodingChallenge.Infrastructure.Data
             modelBuilder.Entity<Employee>()
                 .Property(e => e.Name)
                 .HasMaxLength(100);
+
+            modelBuilder.Entity<Leave>()
+                .HasKey(e => e.Id);
         }
     }
 }

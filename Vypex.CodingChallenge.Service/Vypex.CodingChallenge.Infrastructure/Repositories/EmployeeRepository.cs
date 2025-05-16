@@ -45,12 +45,16 @@ namespace Vypex.CodingChallenge.Infrastructure.Repositories
 
         public async Task<IEnumerable<Employee>> GetAllAsync()
         {
-            return await _context.Employees.ToListAsync();
+            return await _context.Employees
+                                 .Include(e => e.Leaves)
+                                 .ToListAsync();
         }
 
         public async Task<Employee?> GetByIdAsync(Guid employeeId)
         {
-            return await _context.Employees.FirstOrDefaultAsync(e => e.Id == employeeId);
+            return await _context.Employees
+                                 .Include(e => e.Leaves)
+                                 .FirstOrDefaultAsync(e => e.Id == employeeId);
         }
     }
 }
