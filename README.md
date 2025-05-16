@@ -91,3 +91,11 @@ dotnet ef database update --startup-project .\Vypex.CodingChallenge.Service\Vype
 Once you've completed the test, create a zip archive of your submission and send it to the recruiter.
 
 Thank you and good luck!
+
+
+# Solution
+
+## Connected API to Sqlite database.
+
+![**Get all employees**](/Docs/ConnectedAPItoDatabase.png)
+

@@ -42,5 +42,15 @@ namespace Vypex.CodingChallenge.Infrastructure.Repositories
         {
             return await _context.Employees.Where(x => x.Name == name).ToListAsync();
         }
+
+        public async Task<IEnumerable<Employee>> GetAllAsync()
+        {
+            return await _context.Employees.ToListAsync();
+        }
+
+        public async Task<Employee?> GetByIdAsync(Guid employeeId)
+        {
+            return await _context.Employees.FirstOrDefaultAsync(e => e.Id == employeeId);
+        }
     }
 }

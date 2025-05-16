@@ -21,4 +21,10 @@
     <ProjectReference Include="..\Vypex.CodingChallenge.Infrastructure\Vypex.CodingChallenge.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="vypex_coding_challenge.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
