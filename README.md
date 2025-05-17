@@ -95,6 +95,10 @@ Thank you and good luck!
 
 # Solution
 
+## Entity layer
+
+![**Entity Layer**](/Docs/EFEntitySchema.png)
+
 ## Repository layer
 
 ![**Repository Layer**](/Docs/RepositoryLayerClassDiagram.png)
