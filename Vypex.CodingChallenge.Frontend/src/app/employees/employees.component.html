@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Total Leave Days</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -9,6 +10,7 @@
     @for (employee of employees$ | async; track employee.id) {
     <tr>
       <td>{{ employee.name }}</td>
+      <td>{{ employee.totalLeaveDays }}</td>
       <td><button nz-button nzType="default" (click)="edit(employee.id)">✏️ Edit</button></td>
     </tr>
     }
