@@ -40,7 +40,10 @@ namespace Vypex.CodingChallenge.Infrastructure.Repositories
 
         public async Task<IEnumerable<Employee>> SearchAsync(string name)
         {
-            return await _context.Employees.Where(x => x.Name == name).ToListAsync();
+            return await _context.Employees
+                                 .Include(e => e.Leaves)
+                                 .Where(x => x.Name.ToLower().Contains(name.ToLower()))
+                                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Employee>> GetAllAsync()

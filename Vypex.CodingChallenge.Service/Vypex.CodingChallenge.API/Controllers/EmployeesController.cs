@@ -16,10 +16,13 @@ namespace Vypex.CodingChallenge.API.Controllers
         }
 
         [HttpGet(Name = "GetEmployees")]
-        public async Task<IEnumerable<EmployeeModel>> Get() => await _employeeService.GetAllAsync();
+        public async Task<IActionResult> Get() => Ok(await _employeeService.GetAllAsync());
             
 
         [HttpGet("{id}", Name = "GetEmployeeById")]
-        public async Task<EmployeeModel?> GetById(Guid id) => await _employeeService.GetByIdAsync(id);
+        public async Task<IActionResult> GetById(Guid id) => Ok(await _employeeService.GetByIdAsync(id));
+
+        [HttpGet("search/{name}", Name = "Search")]
+        public async Task<IActionResult> Search(string name) => Ok(await _employeeService.SearchAsync(name));
     }
 }
