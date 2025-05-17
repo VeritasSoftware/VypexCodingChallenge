@@ -95,6 +95,14 @@ Thank you and good luck!
 
 # Solution
 
+## Repository layer
+
+![**Repository Layer**](/Docs/RepositoryLayerClassDiagram.png)
+
+## Business layer
+
+![**Business Layer**](/Docs/BusinessLayerClassDiagram.png)
+
 ## Connected API to Sqlite database.
 
 ![**Get all employees**](/Docs/ConnectedAPItoDatabase.png)

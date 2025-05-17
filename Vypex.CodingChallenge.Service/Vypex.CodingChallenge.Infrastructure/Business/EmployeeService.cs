@@ -38,5 +38,17 @@ namespace Vypex.CodingChallenge.Infrastructure.Business
 
             return _mapperService.Map<Employee, EmployeeModel>(employee);
         }
+
+        public async Task<IEnumerable<EmployeeModel>> SearchAsync(string name)
+        {
+            var employees = await _employeeRepository.SearchAsync(name);
+
+            if (employees == null)
+            {
+                return Enumerable.Empty<EmployeeModel>();
+            }
+
+            return _mapperService.Map<Employee, EmployeeModel>(employees);
+        }
     }
 }

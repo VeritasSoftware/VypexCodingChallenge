@@ -6,5 +6,6 @@ namespace Vypex.CodingChallenge.Infrastructure.Business
     {
         Task<IEnumerable<EmployeeModel>> GetAllAsync();
         Task<EmployeeModel?> GetByIdAsync(Guid id);
+        Task<IEnumerable<EmployeeModel>> SearchAsync(string name);
     }
 }
