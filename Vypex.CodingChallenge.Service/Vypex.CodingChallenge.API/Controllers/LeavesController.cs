@@ -16,9 +16,22 @@ namespace Vypex.CodingChallenge.API.Controllers
         }
 
         [HttpPost]
-        public async Task<LeaveModel> Add(LeaveModel model)
+        public async Task<IActionResult> Add(LeaveModel model)
         {
-            return await _leaveService.AddAsync(model);
+            return Ok(await _leaveService.AddAsync(model));
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, LeaveModel model)
+        {
+            model.Id = id;
+            return Ok(await _leaveService.UpdateAsync(model));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task Delete(Guid id)
+        {
+            await _leaveService.DeleteAsync(id);
         }
     }
 }

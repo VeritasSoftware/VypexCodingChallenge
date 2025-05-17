@@ -4,7 +4,7 @@ using Vypex.CodingChallenge.Infrastructure.Data;
 
 namespace Vypex.CodingChallenge.Infrastructure.Repositories
 {
-    public class EmployeeRepository : IEmployeeRepository, IRepository<Employee>
+    public class EmployeeRepository : IEmployeeRepository
     {
         private readonly CodingChallengeContext _context;
 
@@ -18,6 +18,13 @@ namespace Vypex.CodingChallenge.Infrastructure.Repositories
             await _context.Employees.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
+        }              
+
+        public async Task<Employee> UpdateAsync(Employee entity)
+        {
+            _context.Employees.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
 
         public async Task DeleteAsync(Guid id)
@@ -29,13 +36,6 @@ namespace Vypex.CodingChallenge.Infrastructure.Repositories
                 _context.Employees.Remove(employee);
                 await _context.SaveChangesAsync();
             }
-        }        
-
-        public async Task<Employee> UpdateAsync(Employee entity)
-        {
-            _context.Employees.Update(entity);
-            await _context.SaveChangesAsync();
-            return entity;
         }
 
         public async Task<IEnumerable<Employee>> SearchAsync(string name)

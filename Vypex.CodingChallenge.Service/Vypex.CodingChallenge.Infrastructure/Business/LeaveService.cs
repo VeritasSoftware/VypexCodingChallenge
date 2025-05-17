@@ -6,10 +6,10 @@ namespace Vypex.CodingChallenge.Infrastructure.Business
 {
     public class LeaveService : ILeaveService
     {
-        private readonly IRepository<Leave> _leaveRepository;
+        private readonly ILeaveRepository _leaveRepository;
         private readonly IMapperService _mapperService;
 
-        public LeaveService(IRepository<Leave> repository, IMapperService mapperService)
+        public LeaveService(ILeaveRepository repository, IMapperService mapperService)
         {
             _leaveRepository = repository;
             _mapperService = mapperService;
@@ -20,6 +20,18 @@ namespace Vypex.CodingChallenge.Infrastructure.Business
             var leave = _mapperService.Map<LeaveModel, Leave>(leaveModel);
             leave = await _leaveRepository.AddAsync(leave);
             return _mapperService.Map<Leave, LeaveModel>(leave);
+        }
+
+        public async Task<LeaveModel> UpdateAsync(LeaveModel leaveModel)
+        {
+            var leave = _mapperService.Map<LeaveModel, Leave>(leaveModel);
+            leave = await _leaveRepository.UpdateAsync(leave);
+            return _mapperService.Map<Leave, LeaveModel>(leave);
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            await _leaveRepository.DeleteAsync(id);
         }
 
     }

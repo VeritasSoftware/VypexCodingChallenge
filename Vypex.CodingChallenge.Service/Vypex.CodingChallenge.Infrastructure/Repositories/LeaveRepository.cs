@@ -3,7 +3,7 @@ using Vypex.CodingChallenge.Infrastructure.Data;
 
 namespace Vypex.CodingChallenge.Infrastructure.Repositories
 {
-    public class LeaveRepository : IRepository<Leave>
+    public class LeaveRepository : ILeaveRepository
     {
         private readonly CodingChallengeContext _context;
 
@@ -19,14 +19,22 @@ namespace Vypex.CodingChallenge.Infrastructure.Repositories
             return entity;
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var leave = await _context.Leaves.FindAsync(id);
+
+            if (leave != null)
+            {
+                _context.Leaves.Remove(leave);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public Task<Leave> UpdateAsync(Leave entity)
+        public async Task<Leave> UpdateAsync(Leave entity)
         {
-            throw new NotImplementedException();
+            _context.Leaves.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
     }
 }
