@@ -111,3 +111,7 @@ Thank you and good luck!
 
 ![**Get all employees**](/Docs/ConnectedAPItoDatabase.png)
 
+## Front end - Employees list
+
+![**Front end - Employees list**](/Docs/FrontEnd.png)
+
