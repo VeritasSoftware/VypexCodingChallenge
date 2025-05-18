@@ -62,7 +62,7 @@ export class EmployeesComponent implements OnInit {
 
     let searchName = this.form.value.searchName!;
     if (searchName.length === 0) {
-      this.load();
+      this.error$.next({ message: 'Search name cannot be empty.' });
       return;
     }
 

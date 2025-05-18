@@ -9,12 +9,9 @@
       <input type="text" nz-input [formControl]="form.controls.searchName" (keyup.enter)="onEnter()" placeholder="Search by name" />
     </nz-input-group>
     <ng-template #suffixIconButton>
-      <nz-input-group [nzAddOnAfter]="buttons">
-        <button nz-button nzType="primary" nzSearch><nz-icon nzType="search" (click)="search()" /></button>
-      </nz-input-group>
-      <ng-template #buttons>
-        <button nz-button nzType="primary" (click)="load()">Refresh</button>
-      </ng-template>
+      <button nz-button nzType="primary" nzSearch><nz-icon nzType="search" (click)="search()" /></button>
+      &nbsp;&nbsp;
+      <button nz-button nzType="primary" (click)="load()">Refresh</button>
     </ng-template>
   </nz-form-item>
 </form>
