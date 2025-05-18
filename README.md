@@ -95,6 +95,8 @@ Thank you and good luck!
 
 # Solution
 
+# Back end
+
 ## Entity layer
 
 ![**Entity Layer**](/Docs/EFEntitySchema.png)
@@ -111,7 +113,13 @@ Thank you and good luck!
 
 ![**Get all employees**](/Docs/ConnectedAPItoDatabase.png)
 
-## Front end - Employees list
+# Front end
 
-![**Front end - Employees list**](/Docs/FrontEnd.png)
+## Services
+
+![**Services**](/Docs/FrontEndServicesLayer.png)
+
+## Employees list page
+
+![**Employees list page**](/Docs/FrontEnd.png)
 
