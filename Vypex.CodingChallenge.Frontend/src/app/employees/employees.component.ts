@@ -1,11 +1,13 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconDirective, NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { BehaviorSubject } from 'rxjs';
 import { EditEmployeeModal } from './edit-employee/edit-employee.modal';
-import { Employee } from './models';
 import { EmployeeApiService } from './services/employee-api.service';
 import { NotificationService } from './services/notification.service';
 
@@ -15,7 +17,13 @@ import { NotificationService } from './services/notification.service';
     NzTableModule,
     NzButtonComponent,
     NzAlertComponent,
-    AsyncPipe
+    AsyncPipe,
+    NzFormModule,
+    NzInputModule,
+    NzIconModule,
+    NzIconDirective,
+    CommonModule,
+    ReactiveFormsModule
   ],
   providers: [
     EditEmployeeModal
@@ -28,19 +36,49 @@ export class EmployeesComponent implements OnInit {
   private readonly employeeApiService = inject(EmployeeApiService);
   private readonly editEmployeeModal = inject(EditEmployeeModal);
 
-  public employees$: BehaviorSubject<Employee[]> = this.notificationService.data$;
-  public error$: BehaviorSubject<any> = this.notificationService.error$;
+  public employees$ = this.notificationService.data$;
+  public error$ = this.notificationService.error$;
 
-  subscribe$ = this.employeeApiService.getEmployees();
+  private subscribe$ = this.employeeApiService.getEmployees();
+
+  private readonly fb = inject(FormBuilder);
+
+  protected readonly form = this.fb.group({
+    searchName: this.fb.nonNullable.control(null!)
+  })
 
   public ngOnInit() {
     this.load();
   }
 
   load() {
+    this.reset(); // Reset error and employees state.
+    this.notificationService.subscribe(this.subscribe$);
+  }
+
+  search() {
+    this.reset(); // Reset error and employees state.
+
+    let searchName = <string><unknown>this.form.value.searchName;
+    if (searchName.length === 0) {
+      this.load();
+      return;
+    }
+
+    if (searchName.length < 3) {
+      this.error$.next({ message: 'Search name must be at least 3 characters long.' });
+      return;
+    }
+
+    this.notificationService.subscribe
+      (
+        this.employeeApiService.getEmployeesByName(searchName)
+      );
+  }
+
+  reset() {
     this.error$.next(null); // Reset error state.
     this.employees$.next([]); // Reset employees state.
-    this.notificationService.subscribe(this.subscribe$);
   }
 
   public edit(employeeId: number) {

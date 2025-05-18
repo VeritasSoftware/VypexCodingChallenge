@@ -12,4 +12,8 @@ export class EmployeeApiService {
   public getEmployees(): Observable<Array<Employee>> {
     return this.httpClient.get<Array<Employee>>(`${this.baseUrl}/employees`);
   }
+
+  public getEmployeesByName(name: string): Observable<Array<Employee>> {
+    return this.httpClient.get<Array<Employee>>(`${this.baseUrl}/employees/search/${name}`);
+  }
 }
