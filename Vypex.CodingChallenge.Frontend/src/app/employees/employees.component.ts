@@ -77,6 +77,10 @@ export class EmployeesComponent implements OnInit {
       );// Fetch employees by name.
   }
 
+  onEnter() {
+    this.search();
+  }
+
   reset() {
     this.error$.next(null); // Reset error state.
     this.employees$.next([]); // Reset employees state.

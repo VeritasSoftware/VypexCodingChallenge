@@ -6,7 +6,7 @@
 <form nz-form nzLayout="vertical" [formGroup]="form">
   <nz-form-item>
     <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-      <input type="text" nz-input [formControl]="form.controls.searchName" placeholder="Search by name" />
+      <input type="text" nz-input [formControl]="form.controls.searchName" (keyup.enter)="onEnter()" placeholder="Search by name" />
     </nz-input-group>
     <ng-template #suffixIconButton>
       <nz-input-group [nzAddOnAfter]="buttons">
