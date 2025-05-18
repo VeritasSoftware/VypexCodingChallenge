@@ -1,17 +1,22 @@
-<button nz-button nzType="primary" (click)="load()">Refresh</button>
-<br />
 @if (error$ | async) {
 <br />
 <nz-alert nzType="error" [nzMessage]="(error$ | async)?.message"></nz-alert>
 }
 <br />
 <form nz-form nzLayout="vertical" [formGroup]="form">
-  <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-    <input type="text" nz-input [formControl]="form.controls.searchName" placeholder="Search by name" />
-  </nz-input-group>
-  <ng-template #suffixIconButton>
-    <button nz-button nzType="primary" nzSearch><nz-icon nzType="search" (click)="search()" /></button>
-  </ng-template>
+  <nz-form-item>
+    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+      <input type="text" nz-input [formControl]="form.controls.searchName" placeholder="Search by name" />
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <nz-input-group [nzAddOnAfter]="buttons">
+        <button nz-button nzType="primary" nzSearch><nz-icon nzType="search" (click)="search()" /></button>
+      </nz-input-group>
+      <ng-template #buttons>
+        <button nz-button nzType="primary" (click)="load()">Refresh</button>
+      </ng-template>
+    </ng-template>
+  </nz-form-item>
 </form>
 <br />
 <nz-table nzTemplateMode>

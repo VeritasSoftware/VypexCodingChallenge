@@ -44,7 +44,7 @@ export class EmployeesComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
 
   protected readonly form = this.fb.group({
-    searchName: this.fb.nonNullable.control(null!)
+    searchName: this.fb.nonNullable.control("")
   })
 
   public ngOnInit() {
@@ -52,14 +52,15 @@ export class EmployeesComponent implements OnInit {
   }
 
   load() {
+    this.form.setValue({ searchName: "" }); // Reset search name.
     this.reset(); // Reset error and employees state.
-    this.notificationService.subscribe(this.subscribe$);
+    this.notificationService.subscribe(this.subscribe$);//Fetch employees.
   }
 
   search() {
     this.reset(); // Reset error and employees state.
 
-    let searchName = <string><unknown>this.form.value.searchName;
+    let searchName = this.form.value.searchName!;
     if (searchName.length === 0) {
       this.load();
       return;
@@ -73,7 +74,7 @@ export class EmployeesComponent implements OnInit {
     this.notificationService.subscribe
       (
         this.employeeApiService.getEmployeesByName(searchName)
-      );
+      );// Fetch employees by name.
   }
 
   reset() {
