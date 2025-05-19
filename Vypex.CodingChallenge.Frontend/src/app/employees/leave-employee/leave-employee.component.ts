@@ -46,15 +46,13 @@ export class LeaveEmployeeComponent implements OnInit {
 
   public isUpdate: boolean = false;
 
-  today = new Date();
-
   ngOnInit(): void {
 
   }
 
   disableDates = (current: Date): boolean => {
     // Disable dates before today
-    return current < this.today;
+    return current < new Date();
   };
 
   addLeave() {
@@ -114,8 +112,8 @@ export class LeaveEmployeeComponent implements OnInit {
     this.form.setValue({
       id: "00000000-0000-0000-0000-000000000000",
       employeeId: this.employeeId,
-      startDate: this.today,
-      endDate: this.today
+      startDate: new Date(),
+      endDate: new Date()
     });
     this.isUpdate = false; // Reset update mode.
   }
