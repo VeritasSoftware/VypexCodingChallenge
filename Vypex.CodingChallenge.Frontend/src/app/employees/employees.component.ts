@@ -1,13 +1,10 @@
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzIconDirective, NzIconModule } from 'ng-zorro-antd/icon';
-import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { EditEmployeeModal } from './edit-employee/edit-employee.modal';
+import { SearchEmployeesComponent } from './search-employees/search-employees.component';
 import { EmployeeApiService } from './services/employee-api.service';
 import { NotificationService } from './services/notification.service';
 
@@ -18,12 +15,7 @@ import { NotificationService } from './services/notification.service';
     NzButtonComponent,
     NzAlertComponent,
     AsyncPipe,
-    NzFormModule,
-    NzInputModule,
-    NzIconModule,
-    NzIconDirective,
-    CommonModule,
-    ReactiveFormsModule
+    SearchEmployeesComponent
   ],
   providers: [
     EditEmployeeModal
@@ -41,44 +33,27 @@ export class EmployeesComponent implements OnInit {
 
   private subscribe$ = this.employeeApiService.getEmployees();
 
-  private readonly fb = inject(FormBuilder);
-
-  protected readonly form = this.fb.group({
-    searchName: this.fb.nonNullable.control("")
-  })
-
   public ngOnInit() {
     this.load();
   }
 
+  error(error: any) {
+    this.reset(); // Reset employees state.
+    this.error$.next(error); // Emit error to parent component.
+  }
+
   load() {
-    this.form.setValue({ searchName: "" }); // Reset search name.
     this.reset(); // Reset error and employees state.
     this.notificationService.subscribe(this.subscribe$);//Fetch employees.
   }
 
-  search() {
+  search(searchName: string) {
     this.reset(); // Reset error and employees state.
-
-    let searchName = this.form.value.searchName!;
-    if (searchName.length === 0) {
-      this.error$.next({ message: 'Search name cannot be empty.' });
-      return;
-    }
-
-    if (searchName.length < 3) {
-      this.error$.next({ message: 'Search name must be at least 3 characters long.' });
-      return;
-    }
 
     this.notificationService.subscribe
       (
         this.employeeApiService.getEmployeesByName(searchName)
       );// Fetch employees by name.
-  }
-
-  onEnter() {
-    this.search();
   }
 
   reset() {

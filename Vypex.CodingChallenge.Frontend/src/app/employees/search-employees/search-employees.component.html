@@ -1,0 +1,16 @@
+<form nz-form nzLayout="vertical" [formGroup]="form">
+    <nz-form-item>
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+            <nz-form-control>
+                <input type="text" nz-input [formControl]="form.controls.searchName" (keyup.enter)="onEnter()" placeholder="Search by name" />
+            </nz-form-control>
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+            <nz-form-control class="modal-buttons">
+                <button nz-button nzType="primary" nzSearch><nz-icon nzType="search" (click)="search()" /></button>
+                &nbsp;&nbsp;
+                <button nz-button nzType="primary" (click)="refresh()">Refresh</button>
+            </nz-form-control>
+        </ng-template>
+    </nz-form-item>
+</form>

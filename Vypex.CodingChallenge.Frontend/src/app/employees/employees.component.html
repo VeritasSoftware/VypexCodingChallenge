@@ -3,18 +3,11 @@
 <nz-alert nzType="error" [nzMessage]="(error$ | async)?.message"></nz-alert>
 }
 <br />
-<form nz-form nzLayout="vertical" [formGroup]="form">
-  <nz-form-item>
-    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-      <input type="text" nz-input [formControl]="form.controls.searchName" (keyup.enter)="onEnter()" placeholder="Search by name" />
-    </nz-input-group>
-    <ng-template #suffixIconButton>
-      <button nz-button nzType="primary" nzSearch><nz-icon nzType="search" (click)="search()" /></button>
-      &nbsp;&nbsp;
-      <button nz-button nzType="primary" (click)="load()">Refresh</button>
-    </ng-template>
-  </nz-form-item>
-</form>
+<app-search-employees
+                      (onSearch)="search($event)"
+                      (onRefresh)="load()"
+                      (onError)="error($event)">
+</app-search-employees>
 <br />
 <nz-table nzTemplateMode>
   <thead>
