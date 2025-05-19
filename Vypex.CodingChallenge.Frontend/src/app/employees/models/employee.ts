@@ -1,5 +1,7 @@
+import { Guid } from './guid';
+
 export interface Employee {
-  id: number;
+  id: Guid;
   name: string;
   totalLeaveDays: number;
 }

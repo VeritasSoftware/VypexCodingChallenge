@@ -123,3 +123,7 @@ Thank you and good luck!
 
 ![**Employees list page**](/Docs/FrontEnd.png)
 
+## Edit employee
+
+![**Edit employee**](/Docs/Leave-Employee.png)
+

@@ -24,5 +24,11 @@ namespace Vypex.CodingChallenge.API.Controllers
 
         [HttpGet("search/{name}", Name = "Search")]
         public async Task<IActionResult> Search(string name) => Ok(await _employeeService.SearchAsync(name));
+
+        [HttpGet("{employeeId}/leaves")]
+        public async Task<IActionResult> GetEmployeeLeaves(Guid employeeId)
+        {
+            return Ok(await _employeeService.GetLeavesAsync(employeeId));
+        }
     }
 }

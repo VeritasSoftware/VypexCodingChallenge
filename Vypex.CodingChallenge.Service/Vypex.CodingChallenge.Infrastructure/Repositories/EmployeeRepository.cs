@@ -59,5 +59,19 @@ namespace Vypex.CodingChallenge.Infrastructure.Repositories
                                  .Include(e => e.Leaves)
                                  .FirstOrDefaultAsync(e => e.Id == employeeId);
         }
+
+        public async Task<IEnumerable<Leave>> GetLeavesAsync(Guid employeeId)
+        {
+            var employee = await _context.Employees
+                                 .Include(e => e.Leaves)
+                                 .SingleOrDefaultAsync(e => e.Id == employeeId);
+
+            if (employee == null)
+            {
+                return Enumerable.Empty<Leave>();
+            }
+
+            return employee.Leaves;
+        }
     }
 }

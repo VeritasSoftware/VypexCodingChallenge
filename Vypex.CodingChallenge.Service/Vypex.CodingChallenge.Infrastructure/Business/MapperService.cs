@@ -13,7 +13,7 @@ namespace Vypex.CodingChallenge.Infrastructure.Business
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Employee, EmployeeModel>()
-                   .ForMember(e => e.TotalLeaveDays, e => e.MapFrom(e => e.Leaves.Select(l => l.EndDate.Date.Subtract(l.StartDate.Date).Days).Sum()));
+                   .ForMember(e => e.TotalLeaveDays, e => e.MapFrom(e => e.Leaves.Select(l =>  (l.EndDate == l.StartDate) ? 1 : l.EndDate.AddDays(1).Date.Subtract(l.StartDate.Date).Days).Sum()));
 
                 cfg.CreateMap<Leave, LeaveModel>();
                 cfg.CreateMap<LeaveModel, Leave>()

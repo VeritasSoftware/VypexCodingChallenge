@@ -1,8 +1,22 @@
+@if (leaveError$ | async) {
+<nz-alert nzType="error" [nzMessage]="(error$ | async)?.message"></nz-alert>
+}
 <form nz-form nzLayout="vertical" [formGroup]="form" (ngSubmit)="submit()">
   <nz-form-item>
     <nz-form-label>Name</nz-form-label>
     <nz-form-control>
       <input nz-input type="text" [formControl]="form.controls.name">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <app-leave-employee
+                          [employeeId]="id"
+                          [leaves]="leaves$ | async"
+                          (onAdd)="addLeave($event)"
+                          (onUpdate)="updateLeave($event)"
+                          (onDelete)="deleteLeave($event)">
+      </app-leave-employee>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>

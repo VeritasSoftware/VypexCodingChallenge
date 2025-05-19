@@ -13,13 +13,7 @@ namespace Vypex.CodingChallenge.API.Controllers
         public LeavesController(ILeaveService leaveService) 
         {
             _leaveService = leaveService;
-        }
-
-        [HttpGet("{employeeId}")]
-        public async Task<IActionResult> GetEmployeeLeaves(Guid employeeId)
-        {
-            return Ok(await _leaveService.GetEmployeeLeavesAsync(employeeId));
-        }
+        }        
 
         [HttpPost]
         public async Task<IActionResult> Add(LeaveModel model)

@@ -26,7 +26,7 @@ namespace Vypex.CodingChallenge.Domain.Models
                 yield return new ValidationResult("End date must be specified.", new[] { nameof(EndDate) });
             }
 
-            if (EndDate.Date <= StartDate.Date)
+            if (EndDate.Date < StartDate.Date)
             {
                 yield return new ValidationResult("End date must be after Start date.", new[] { nameof(StartDate), nameof(EndDate) });
             }

@@ -36,20 +36,6 @@ namespace Vypex.CodingChallenge.Infrastructure.Repositories
             _context.Leaves.Update(entity);
             await _context.SaveChangesAsync();
             return entity;
-        }
-
-        public async Task<IEnumerable<Leave>> GetEmployeeLeavesAsync(Guid employeeId)
-        {
-            var employee = await _context.Employees
-                                 .Include(e => e.Leaves)
-                                 .SingleOrDefaultAsync(e => e.Id == employeeId);
-
-            if (employee == null)
-            {
-                return Enumerable.Empty<Leave>();
-            }
-
-            return employee.Leaves;
-        }
+        }        
     }
 }

@@ -4,6 +4,7 @@ import { NzAlertComponent } from 'ng-zorro-antd/alert';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { EditEmployeeModal } from './edit-employee/edit-employee.modal';
+import { Employee } from './models';
 import { SearchEmployeesComponent } from './search-employees/search-employees.component';
 import { EmployeeApiService } from './services/employee-api.service';
 import { NotificationService } from './services/notification.service';
@@ -18,7 +19,8 @@ import { NotificationService } from './services/notification.service';
     SearchEmployeesComponent
   ],
   providers: [
-    EditEmployeeModal
+    EditEmployeeModal,
+    NotificationService
   ],
   templateUrl: './employees.component.html',
   styleUrl: './employees.component.scss'
@@ -33,6 +35,9 @@ export class EmployeesComponent implements OnInit {
 
   private subscribe$ = this.employeeApiService.getEmployees();
 
+  isLastSearchByName: boolean = false;
+  lastSearchName: string = "";
+
   public ngOnInit() {
     this.load();
   }
@@ -43,11 +48,14 @@ export class EmployeesComponent implements OnInit {
   }
 
   load() {
+    this.isLastSearchByName = false; // Reset search state.
     this.reset(); // Reset error and employees state.
     this.notificationService.subscribe(this.subscribe$);//Fetch employees.
   }
 
   search(searchName: string) {
+    this.isLastSearchByName = true; // Set search state.
+    this.lastSearchName = searchName; // Store last search name.
     this.reset(); // Reset error and employees state.
 
     this.notificationService.subscribe
@@ -61,12 +69,18 @@ export class EmployeesComponent implements OnInit {
     this.employees$.next([]); // Reset employees state.
   }
 
-  public edit(employeeId: number) {
-    this.editEmployeeModal.open({ id: employeeId })
+  public edit(employee: Employee) {
+    this.editEmployeeModal.open({ id: employee.id, name: employee.name })
       .afterClose
       .subscribe(result => {
-        if (result === undefined) return; // Modal cancelled.
+        //if (result === undefined) return; // Modal cancelled.
 
+        if (this.isLastSearchByName) {
+          this.search(this.lastSearchName); // Refresh employees by name.
+        }
+        else {
+          this.load(); // Refresh employees.
+        }
         // TODO: Handle result
       });
   }

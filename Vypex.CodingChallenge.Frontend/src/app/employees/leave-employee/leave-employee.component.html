@@ -1,0 +1,67 @@
+Employee Leave Management
+<br /><br />
+<form nz-form nzLayout="vertical" [formGroup]="form">
+    <input type="hidden" [formControl]="form.controls.employeeId" />
+    <input type="hidden" [formControl]="form.controls.id" />
+
+    <nz-form-item>
+        <nz-form-label>Start Date</nz-form-label>
+        <nz-date-picker
+                        [formControl]="form.controls.startDate"
+                        nzFormat="dd-MM-yyyy"
+                        [nzDisabledDate]="disableDates"
+                        placeholder="Start date">
+        </nz-date-picker>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label>End Date</nz-form-label>
+        <nz-date-picker
+                        [formControl]="form.controls.endDate"
+                        nzFormat="dd-MM-yyyy"
+                        [nzDisabledDate]="disableDates"
+                        placeholder="End date">
+        </nz-date-picker>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control class="modal-buttons">
+            @if (isUpdate){
+            <button nz-button nzType="primary" disabled (click)="addLeave()">Add</button>
+            &nbsp;&nbsp;
+            <button nz-button nzType="primary" (click)="updateLeave()">Update</button>
+            &nbsp;&nbsp;
+            <button nz-button nzType="primary" (click)="deleteLeave()">Delete</button>
+            &nbsp;&nbsp;
+            }
+            @if (!isUpdate){
+            <button nz-button nzType="primary" (click)="addLeave()">Add</button>
+            &nbsp;&nbsp;
+            <button nz-button nzType="primary" disabled (click)="updateLeave()">Update</button>
+            &nbsp;&nbsp;
+            <button nz-button nzType="primary" disabled (click)="deleteLeave()">Delete</button>
+            &nbsp;&nbsp;
+            }
+            &nbsp;&nbsp;
+            <button nz-button nzType="primary" (click)="clearLeave()">Clear</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+
+Leave List
+<br />
+<nz-table nzTemplateMode>
+    <thead>
+        <tr>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (leave of leaves; track leave.id) {
+        <tr (click)="selectLeave(leave)">
+            <td>{{ leave.startDate | date: 'dd-MM-yyyy' }}</td>
+            <td>{{ leave.endDate | date: 'dd-MM-yyyy' }}</td>
+        </tr>
+        }
+    </tbody>
+</nz-table>
