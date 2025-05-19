@@ -7,5 +7,6 @@ namespace Vypex.CodingChallenge.Infrastructure.Business
         Task<LeaveModel> AddAsync(LeaveModel leaveModel);
         Task<LeaveModel> UpdateAsync(LeaveModel leaveModel);
         Task DeleteAsync(Guid id);
+        Task<IEnumerable<LeaveModel>> GetEmployeeLeavesAsync(Guid employeeId);
     }
 }

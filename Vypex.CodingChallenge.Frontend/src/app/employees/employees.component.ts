@@ -38,8 +38,8 @@ export class EmployeesComponent implements OnInit {
   }
 
   error(error: any) {
-    this.reset(); // Reset employees state.
-    this.error$.next(error); // Emit error to parent component.
+    this.reset(); // Reset error and employees state.
+    this.error$.next(error); // Display error.
   }
 
   load() {

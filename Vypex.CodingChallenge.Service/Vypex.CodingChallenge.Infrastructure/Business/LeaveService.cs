@@ -15,6 +15,12 @@ namespace Vypex.CodingChallenge.Infrastructure.Business
             _mapperService = mapperService;
         }
 
+        public async Task<IEnumerable<LeaveModel>> GetEmployeeLeavesAsync(Guid employeeId)
+        {
+            var leaves = await _leaveRepository.GetEmployeeLeavesAsync(employeeId);
+            return _mapperService.Map<Leave, LeaveModel>(leaves);
+        }
+
         public async Task<LeaveModel> AddAsync(LeaveModel leaveModel)
         {
             var leave = _mapperService.Map<LeaveModel, Leave>(leaveModel);
