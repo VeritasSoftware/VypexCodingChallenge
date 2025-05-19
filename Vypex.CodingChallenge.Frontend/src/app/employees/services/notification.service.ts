@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({ providedIn: null })
-export class NotificationService {
+export class NotificationService<T> {
 
-    public data$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+    public data$: BehaviorSubject<T> = new BehaviorSubject<T>(<T>{});
     public error$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-    public subscribe<T>(observer: Observable<T>) {
+    public subscribe(observer: Observable<T>) {
         observer.subscribe({
             next: (data) => {
                 console.log('Data loaded successfully', data);

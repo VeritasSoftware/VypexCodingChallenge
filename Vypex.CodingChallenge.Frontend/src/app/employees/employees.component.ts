@@ -26,7 +26,7 @@ import { NotificationService } from './services/notification.service';
   styleUrl: './employees.component.scss'
 })
 export class EmployeesComponent implements OnInit {
-  private readonly notificationService = inject(NotificationService);
+  private readonly notificationService = inject(NotificationService<Employee[]>);
   private readonly employeeApiService = inject(EmployeeApiService);
   private readonly editEmployeeModal = inject(EditEmployeeModal);
 

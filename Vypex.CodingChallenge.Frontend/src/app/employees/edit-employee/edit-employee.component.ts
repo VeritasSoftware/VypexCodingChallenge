@@ -40,8 +40,8 @@ export class EditEmployeeComponent implements OnInit {
   private readonly modalData = inject<EditEmployeeBindings>(NZ_MODAL_DATA);
   private readonly fb = inject(FormBuilder);
 
-  private readonly notificationService = inject(NotificationService);
-  private readonly leaveNotificationService = inject(NotificationService);
+  private readonly notificationService = inject(NotificationService<Leave[]>);
+  private readonly leaveNotificationService = inject(NotificationService<Leave | void>);
 
   private readonly employeeApiService = inject(EmployeeApiService);
   private readonly leaveApiService = inject(LeaveApiService);
@@ -120,7 +120,7 @@ export class EditEmployeeComponent implements OnInit {
   }
 
   resetLeave() {
-    this.leave$.next(null); // Reset leave state.
+    this.leave$.next(null as unknown as Leave); // Reset leave state.
     this.leaveError$.next(null); // Reset leave error state.
   }
 
