@@ -6,6 +6,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { BehaviorSubject } from 'rxjs';
 import { Leave } from '../models';
 import { Guid } from '../models/guid';
 
@@ -32,7 +33,7 @@ export class LeaveEmployeeComponent implements OnInit {
   onClear = output<void>();
 
   @Input() employeeId: Guid = "";
-  @Input() leaves: Leave[] = [];
+  @Input() leaves: BehaviorSubject<Leave[]> = new BehaviorSubject<Leave[]>([]);
 
   private readonly fb = inject(FormBuilder);
 
