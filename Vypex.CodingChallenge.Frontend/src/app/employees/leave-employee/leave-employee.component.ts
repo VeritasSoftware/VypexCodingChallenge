@@ -1,6 +1,6 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject, Input, OnInit, output } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -38,8 +38,8 @@ export class LeaveEmployeeComponent implements OnInit {
 
   protected readonly form = this.fb.group({
     id: this.fb.nonNullable.control(""),
-    startDate: this.fb.nonNullable.control(new Date()),
-    endDate: this.fb.nonNullable.control(new Date()),
+    startDate: this.fb.nonNullable.control(new Date(), Validators.required),
+    endDate: this.fb.nonNullable.control(new Date(), Validators.required),
     employeeId: this.fb.nonNullable.control(""),
   })
 

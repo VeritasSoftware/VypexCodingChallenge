@@ -125,10 +125,7 @@ export class EditEmployeeComponent implements OnInit {
   }
 
   reset() {
-    // this.leave$.next(null); // Reset leave state.
-    // this.leaveError$.next(null); // Reset leave error state.
     this.leaves$.next([]); // Reset leaves state.
     this.error$.next(null); // Reset error state.
   }
-
 }
